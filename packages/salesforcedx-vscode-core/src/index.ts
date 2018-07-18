@@ -6,8 +6,8 @@
  */
 
 import * as path from 'path';
-import { ConfigurationTarget } from 'vscode';
 import * as vscode from 'vscode';
+import { ConfigurationTarget } from 'vscode';
 import { channelService } from './channels';
 import {
   CompositeParametersGatherer,
@@ -66,9 +66,9 @@ import {
 import * as decorators from './decorators';
 import { nls } from './messages';
 import { isDemoMode } from './modes/demo-mode';
-import { telemetryService } from './telemetry';
 import { notificationService, ProgressNotification } from './notifications';
 import { taskViewService } from './statuses';
+import { telemetryService } from './telemetry';
 
 function registerCommands(
   extensionContext: vscode.ExtensionContext
@@ -455,6 +455,8 @@ export function deactivate(): Promise<void> {
 
   // Send metric data.
   telemetryService.sendExtensionDeactivationEvent();
+  telemetryService.dispose();
+
   decorators.disposeTraceFlagExpiration();
   return turnOffLogging();
 }
